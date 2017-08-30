@@ -6,7 +6,21 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+import random
+import logging
+from zhihu.user_agent import user_agents
 
+
+
+logger = logging.getLogger(__name__)
+
+
+class UserAgentMiddleware(object):
+    """ 换User-Agent """
+
+    def process_request(self, request, spider):
+        user_agent = random.choice(user_agents)
+        request.headers["User-Agent"] = user_agent
 
 class ZhihuSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
